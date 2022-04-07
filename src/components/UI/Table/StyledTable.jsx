@@ -1,39 +1,29 @@
 import { React } from "react";
+import TableHeader from "./TableHeader";
+import styles from './StyleTable.module.css';
 
-const StyledTable = ({ data }) => {
-  const s = JSON.parse(data)
-  console.log( 'data', s)
-  
+const StyledTable = ({ data, tableHeader, type}) => {
   return (
-    <table>
-    <thead>
-        <tr>
-        <th>№</th>
-          <th>First name</th>
-          <th>Last name</th>
-          <th>Email</th>
-          <th>Team</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            {/* {
-              data.map(item=>(
-              <tr>
+    <table className={styles.tableWrapper}>
+      <thead className={styles.tableHeader}>
+        <TableHeader header={tableHeader}></TableHeader>
+      </thead>
+      <tbody>
+
+        {
+          type === 'members'?
+            data.map((item, index) => (
+              <tr key={item.id}>
+                <td>{index + 1}</td>
                 <td>{item.first_name}</td>
-                <td>Maria Anders</td>
-                <td>Germany</td>
+                <td>{item.last_name}</td>
+                <td>{item.email}</td>
+                <td>{item.team.name}</td>
               </tr>
-            ))
-            } */}
-        </tr> 
-    </tbody>
-</table>
-    
-        
-        
-        
- 
-  );
-};
-export default StyledTable;
+            )): null
+       }
+      </tbody>
+    </table>
+  )
+}
+export default StyledTable
