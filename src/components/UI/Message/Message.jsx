@@ -1,11 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-const Message = ({children, className, error}) =>{
-  return(
-    <div className={className}>{children}</div>
-  )
-}
+const Message = ({ children, className }) => {
+  return <div className={className}>{children}</div>;
+};
 export default styled(Message)`
   position: fixed;
   top: 6rem;
@@ -13,7 +11,6 @@ export default styled(Message)`
   border-radius: 15px;
   padding 1rem;
   color:#fff;
-  background: ${ props => !props.type ? '#bd1414': '#47e954' }
-
+  background: ${(props) => (!props.type ? "#bd1414" : "#47e954")}
+  
 `;
-

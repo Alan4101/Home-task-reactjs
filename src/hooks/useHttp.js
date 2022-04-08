@@ -12,7 +12,6 @@ export const useHttp = () => {
         const response = await axios({ url, method, body, headers });
         setLoading(false);
         return response.data;
-
       } catch (error) {
         setLoading(false);
         setError(error.message);
