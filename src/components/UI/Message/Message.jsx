@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+
+
 const Message = ({ children, className }) => {
   return <div className={className}>{children}</div>;
 };
@@ -13,4 +15,5 @@ export default styled(Message)`
   color:#fff;
   background: ${(props) => (!props.type ? "#bd1414" : "#47e954")}
   
+ 
 `;

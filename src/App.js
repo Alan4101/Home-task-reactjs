@@ -7,7 +7,7 @@ import {
 import Layout from './components/Layout/Layout';
 import Members from './pages/Members';
 import Teams from './pages/Teams';
-import Todo from './pages/Todo';
+import Todos from './pages/Todos';
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
         <Route path='/' element={<Layout/>}>
           <Route index element={<Members/>} />
           <Route path='teams' element={<Teams/>} />
-          <Route path='todo' element={<Todo/>} />
+          <Route path='todo' element={<Todos/>} />
         </Route>
       </Routes>
     </>

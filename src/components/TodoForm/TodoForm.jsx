@@ -1,38 +1,28 @@
 import React, { useState } from "react";
 import styles from "./TodoForm.module.css";
-import { useHttp } from './../../hooks/useHttp';
 
-const TodoForm = ({}) => {
-  const[message, setMesage] = useState(false);
+const TodoForm = ({addTask}) => {
   const [value, setValue] = useState('');
 
-  const submitHandler = (event) => {
-    event.preventDefault();
+  const handleChange = (event) =>{
+    setValue(event.currentTarget.value);
+  }
 
-    if (value.trim()) {
-      const item = {
-        id: new Date.now(),
-        text: value,
-        date: new Date.now()
-      }
-      
-      console.log(value)
-      
-      setValue("");
-    } else {
-      console.log('empty')
-    }
+  const hadleSybmit = (event) => {
+    event.preventDefault();
+    addTask(value);
+    setValue('');
   };
   return (
-    <form className={styles.formTodo} onSubmit={submitHandler}>
+    <form className={styles.formTodo} onSubmit={hadleSybmit}>
       <div className={styles.formField}>
         <label htmlFor="input" className={styles.formLabel}>
           Item
         </label>
         <input
           id="input"
-          onChange={(e) => setValue(e.target.value)}
-          value={value.text}
+          onChange={handleChange}
+          value={value}
           className={styles.formInput}
           type="text"
         />

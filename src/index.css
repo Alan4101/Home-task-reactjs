@@ -54,3 +54,14 @@ code {
 .container__table{
   margin: 2rem auto;
 }
+.hide5sc{
+  animation: hideAnimation 0s ease-in 5s;
+  animation-fill-mode: forwards;
+}
+@keyframes hideAnimation {
+  to {
+    visibility: hidden;
+    width: 0;
+    height: 0;
+  }
+}

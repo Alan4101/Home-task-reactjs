@@ -29,6 +29,7 @@
   max-width: 250px;
   border-radius: 15px;
   border: 2px solid transparent;
+  outline: none;
 
 }
 .btnForm:hover{
