@@ -36,9 +36,7 @@ code {
   text-decoration-color: aquamarine !important;
   transition: all .2s ease-in-out;
 }
-.main__wrapper{
-
-}
+.main__wrapper,
 .container__member,.container__teams{
   display: flex;
   justify-content: center;

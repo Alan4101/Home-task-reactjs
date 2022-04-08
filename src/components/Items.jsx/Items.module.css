@@ -1,0 +1,9 @@
+.itemWrapper{
+  padding: 10px;
+}
+.item{
+  text-align: start;
+  list-style-type: none;
+  padding: 1rem;
+  border: 1px solid #ccc;
+}

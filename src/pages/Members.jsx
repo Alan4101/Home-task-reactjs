@@ -7,7 +7,7 @@ import config from "../config";
 import { useHttp } from "../hooks/useHttp";
 
 const Members = () => {
-  const { loading, error, request, clearError } = useHttp();
+  const { loading, error, request } = useHttp();
   const [members, setMembers] = useState([]);
   const [membersHead, setMembersHead] = useState([
     "№","First name","Last name","Email","Team",

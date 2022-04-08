@@ -12,6 +12,8 @@ export async function create(url, data) {
   try {
     const res = await axios.post(url, data);
     console.log(res);
+
+    return res.data;
   } catch (error) {
     console.log(error)
   }

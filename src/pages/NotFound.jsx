@@ -1,11 +1,12 @@
-import React from 'react';
+import React from "react";
+import styled from "styled-components";
 
-const NotFound = () => {
-    return (
-        <div>
-            Not found
-        </div>
-    );
+const NotFound = ({ className }) => {
+  return <div className={className}>Not found</div>;
 };
 
-export default NotFound;
+export default styled(NotFound)`
+        textAlign: 'center',
+        marginTop: '20px',
+        marginBottom: '20px',
+`;
