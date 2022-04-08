@@ -39,7 +39,7 @@ code {
 .main__wrapper{
 
 }
-.container__member{
+.container__member,.container__teams{
   display: flex;
   justify-content: center;
   flex-direction: column;

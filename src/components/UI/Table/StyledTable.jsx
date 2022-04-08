@@ -20,7 +20,14 @@ const StyledTable = ({ data, tableHeader, type}) => {
                 <td>{item.email}</td>
                 <td>{item.team.name}</td>
               </tr>
-            )): null
+            )): 
+            data.map((item, index) => (
+              <tr key={item.id}>
+                <td>{index + 1}</td>
+                <td>{item.name}</td>
+                <td>{item.member_count}</td>
+              </tr>
+            ))
        }
       </tbody>
     </table>
