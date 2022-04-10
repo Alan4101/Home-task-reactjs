@@ -31,13 +31,21 @@ export async function create(url, data) {
     throw error;
   }
 }
-export async function dlete(url, id) {
+export async function deletes(url, id) {
   try {
     const res = await axios.delete(`${url}/${id}`);
     return res.statusText;
 
   } catch (error) {
     
+    throw error;
+  }
+}
+export async function update(url, id, body){
+  try{
+    const res = await axios.put(`${url}/${id}`, body)
+    return res.statusText;
+  } catch(error){
     throw error;
   }
 }

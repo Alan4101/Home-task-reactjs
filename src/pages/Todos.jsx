@@ -3,20 +3,34 @@ import TodoList from "../components/TodoList/TodoList"
 import TodoForm from "../components/TodoForm/TodoForm"
 
 import config from "../config"
-import { create, getAllItems, getById } from "../api/apiServise"
+import {
+  create,
+  deletes,
+  getAllItems,
+  update,
+} from "../api/apiServise"
 import Message from "../components/UI/Message/Message"
+import MyModal from "../components/UI/Modal/MyModal"
+const URL = `${config.url}/todos`
 
 const Todos = () => {
   const [todos, setTodos] = useState([])
   const [message, setMessage] = useState("")
   const [error, setError] = useState(false)
+  const [modal, setModal] = useState(false)
+  const [valueForUpdate, setValueForUpdate] = useState({})
+
+  const getAllTodos = async () => {
+    const data = await getAllItems(URL)
+    setTodos(data)
+  }
 
   useEffect(() => {
-    getItems()
+    getAllTodos()
   }, [])
-/**create new new task in db */
-  const createNewTask = async (todo) => {
-    const response = await create(`${config.url}/todos`, todo)
+  /**create new new task in db */
+  const createNewTodo = async (todo) => {
+    const response = await create(URL, todo)
     if (response) {
       setMessage("Todo created successfully.")
       setError(false)
@@ -34,52 +48,85 @@ const Todos = () => {
       date: Date.now(),
     }
     setTodos((prevTodo) => {
-      return [
-        ...prevTodo,
-        {...todo},
-      ]
-       
+      return [...prevTodo, todo]
     })
-    createNewTask(todo)
+    createNewTodo(todo)
   }
 
   const handleToggle = (id) => {
-    let completed = todos.map((todo) => {
-      return todo.id === Number(id)
-        ? { ...todos, complete: !todo.complete }
-        : { ...todo }
+    const completed = todos.map((el) => {
+      return el.id === Number(id)
+        ? { ...el, complete: !el.complete }
+        : { ...el }
     })
-    setTodos(completed)
-  }
-  const handleDelete = (id) => {
-    
-  }
-  const handleEdit = (id) => {
 
+    setTodos(completed)
+    const o = todos.slice(todos.findIndex((i) => i.id === id, 1))
+
+    const updatedTodo = {
+      text: o[0].text,
+      date: o[0].date,
+      complete: !o[0].complete,
+    }
+
+    update(URL, id, updatedTodo)
   }
-  const getItem = async (id) =>{
-    const res = await getById(`${config.url}/todos`, id);
-    return res;
+  /**deleting todo item */
+  const handleDeleteTodo = (id) => {
+    setTodos(todos.filter((el) => el.id !== Number(id)))
+    deletes(URL, id)
   }
-  const getItems = async () => {
-    const data = await getAllItems(`${config.url}/todos`);
-    setTodos(data);
+  /** updating todo item */
+  const handleEditTodo = (id) => {
+    const value = todos[todos.findIndex((i) => i.id === id)]
+    setValueForUpdate(value)
+    setModal(true)
   }
-  if (!error) {
-    return (
-      <div>
-        {message ? <Message className='hide5sc' type>{message}</Message> : null}
-        <TodoList todosData={todos} handleToggle={handleToggle} handleDelete={handleDelete} handleEdit={handleEdit}></TodoList>
-        <TodoForm addTask={addTask} />
-      </div>
+  const handleUpdate = (value) => {
+    const todo = {
+      text: value,
+      complete: false,
+      date: Date.now(),
+    }
+    setTodos(
+      todos.map((el) => {
+        return el.id === Number(valueForUpdate.id)
+          ? { ...el, ...todo }
+          : { ...el }
+      })
     )
-  } else {
-    <div>
-      {message ? <Message className='hide5sc'>{message}</Message> : null}
-      <TodoList todosData={todos} handleToggle={handleToggle} handleDelete={handleDelete} handleEdit={handleEdit}></TodoList>
-      <TodoForm addTask={addTask} />
-    </div>
+    update(URL, valueForUpdate.id, todo)
+    setModal(false)
   }
+
+  return (
+    <div>
+      {!error ? (
+        message ? (
+          <Message className="hide5sc" type>
+            {message}
+          </Message>
+        ) : null
+      ) : message ? (
+        <Message className="hide5sc">{message}</Message>
+      ) : null}
+
+      <MyModal visible={modal} setVisible={setModal}>
+        <TodoForm
+          handleItem={handleUpdate}
+          typeButton="edit"
+          valueForUpdate={valueForUpdate}
+        ></TodoForm>
+      </MyModal>
+      <TodoList
+        todosData={todos}
+        handleToggle={handleToggle}
+        handleDelete={handleDeleteTodo}
+        handleEdit={handleEditTodo}
+      ></TodoList>
+      <TodoForm handleItem={addTask} typeButton="create" valueForUpdate="" />
+    </div>
+  )
 }
 
 export default Todos

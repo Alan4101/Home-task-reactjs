@@ -65,3 +65,30 @@ code {
     height: 0;
   }
 }
+/*Details*/
+.article-container{
+  margin-top: 2rem;
+}
+.article-container>h1{
+  text-align: center;
+}
+.article-description{
+  margin: 1rem 0;
+  line-height: 25px;
+  font-weight: 400;
+}
+.article__btn-container{
+  width: 100%;
+  text-align: center;
+}
+.article-btn{
+  margin: 0 auto;
+  margin-top: 1rem;
+  padding: 1rem;
+
+  border: 2px solid transparent;
+}
+.article-btn:hover{
+  border: 2px solid #7fffd4;
+  transition: all .2s ease-in-out;
+}

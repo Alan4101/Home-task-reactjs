@@ -1,6 +1,7 @@
-import { React } from "react";
-import TableHeader from "./TableHeader";
-import styles from "./StyleTable.module.css";
+import { React } from "react"
+import TableHeader from "./TableHeader"
+import styles from "./StyleTable.module.css"
+import { Link } from "react-router-dom"
 
 const StyledTable = ({ data, tableHeader, type }) => {
   return (
@@ -16,7 +17,9 @@ const StyledTable = ({ data, tableHeader, type }) => {
                 <td>{item.first_name}</td>
                 <td>{item.last_name}</td>
                 <td>{item.email}</td>
-                <td>{item.team.name}</td>
+                <td>
+                  <Link to={`/teams/${item.team.id}`}>{item.team.name}</Link>
+                </td>
               </tr>
             ))
           : data.map((item, index) => (
@@ -28,6 +31,6 @@ const StyledTable = ({ data, tableHeader, type }) => {
             ))}
       </tbody>
     </table>
-  );
-};
-export default StyledTable;
+  )
+}
+export default StyledTable
